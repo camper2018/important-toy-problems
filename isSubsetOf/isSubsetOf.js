@@ -23,12 +23,8 @@
 
 Array.prototype.isSubsetOf = function (arr) {
   // your code here
-  var isSubset = false;
-  // check each item in subset array
-  for (var i = 0; i < this.length; i++) {
-    if (arr.includes(this[i])) {
-      isSubset = true;
-    }
-  }
-  return isSubset;
-};
+  return this.every(function(item) {
+    return arr.includes(item);
+  });
+
+ };
