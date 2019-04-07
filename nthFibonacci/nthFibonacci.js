@@ -21,32 +21,32 @@
  */
 
 
-var nthFibonacci = function (n) {
-  // TODO: implement me!
+// var nthFibonacci = function (n) {
+//   // TODO: implement me!
 
-  if (n === 0) {
+//   if (n === 0) {
+//     return 0;
+//   }
+//   if (n === 1 || n === 2) {
+//     return 1;
+//   }
+//   return nthFibonacci(n - 2) + nthFibonacci(n - 1);
+// };
+// iterative solution
+var nthFibonacci = function(n) {
+  var fib0 = 0;
+  var fib1 = 1;
+  var fibN = 1;
+  if (n == 0) {
     return 0;
   }
-  if (n === 1 || n === 2) {
-    return 1;
+  for (var i = 2; i <= n; i++) {
+    fibN = fib0 + fib1;
+    fib0 = fib1;
+    fib1 = fibN;
   }
-  return nthFibonacci(n - 2) + nthFibonacci(n - 1);
+  return fibN;
 };
-// iterative solution
-//var nthFibonacci = function(n) {
-  // var fib0 = 0;
-  // var fib1 = 1;
-  // var fibN = 1;
-  // if (n == 0) {
-  //   return 0;
-  // }
-  // for (var i = 2; i <= n; i++) {
-  //   fibN = fib0 + fib1;
-  //   fib0 = fib1;
-  //   fib1 = fibN;
-  // }
-  // return fibN;
-//};
 
 
 
