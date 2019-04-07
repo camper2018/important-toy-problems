@@ -32,7 +32,23 @@
 
 // Feel free to add helper functions if needed.
 
-
 var bubbleSort = function(array) {
   // Your code here.
+  var sortedArray = array.slice();
+  var isSorted = false;
+   // continue to loop through array again and again until array is sorted
+  while (!isSorted) {
+    isSorted = true;
+    var lastUnsortedEle = sortedArray.length - 1;
+    for (var i = 0; i < lastUnsortedEle; i++) {
+      if (sortedArray[i] > sortedArray[i + 1]) {
+        var currentEle = sortedArray[i];
+        sortedArray[i] = sortedArray[i + 1];
+        sortedArray[i + 1] = currentEle;
+        isSorted = false;
+      }
+    }
+    lastUnsortedEle-- ;
+  }
+  return sortedArray;
 };
