@@ -18,6 +18,7 @@ var commonCharacters = function(string1, string2) {
 
   // initialize a variable
   var commonChars = "";
+  var wasFound = false;
   // convert string1 to an array to compare each of its letters with the other strings
   var stringToCompare = string1.split("");
   //initialize a variable to hold other strings to be compared with string1
