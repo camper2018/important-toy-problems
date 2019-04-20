@@ -10,4 +10,9 @@
 
 var largestProductOfThree = function(array) {
   // TODO: everything
+  var arrayCopy = array.slice();
+    var newArray =  arrayCopy.sort(function(n1, n2) {
+      return n2 - n1;
+    });
+    return newArray[0] * newArray[1] * newArray[2];
 };
