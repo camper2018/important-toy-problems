@@ -36,7 +36,38 @@ var Tree = function(value) {
 };
 
 Tree.prototype.DFSelect = function(filter) {
+  var array = [];
+  var depth = 0;
+  var traverseTree = function(node) {
+    if(filter(node.value, depth)) {
+      array.push(node.value);
+    }
+    depth++;
+    if (node.children && node.children.length > 0) {
+      node.children.forEach(function(child) {
+        traverseTree(child);
+        depth--;
+      });
+
+    }
+  }
+  traverseTree((this));
+  return array;
 };
+
+// Tree.prototype.DFSelect = function(filter, depth=0, result=[]) {
+//   if (filter(this.value, depth)) {
+//     result.push(this.value);
+//   }
+//   if (this.children && this.children.length > 0) {
+//     this.children.forEach(function(child) {
+//       child.DFSelect(filter, depth + 1, result);
+//     });
+//    depth--;
+//   }
+//   return result;
+// }
+
 
 
 
