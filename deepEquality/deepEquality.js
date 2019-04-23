@@ -12,4 +12,26 @@
   *
   */
 var deepEquals = function(apple, orange) {
+   // check for equal length
+   var appleLength = Object.keys(apple).length;
+   var orangeLength = Object.keys(orange).length;
+   // if different length return false
+   if (appleLength !== orangeLength) {
+      return false;
+   }
+   // otherwise check for equal values
+   var haveEqualValues = true;
+   var checkForEqualValues = function(obj1, obj2) {
+     for (var key in obj1) {
+        if (obj1[key] instanceof Object && obj2[key] instanceof Object) {
+         checkForEqualValues(obj1[key],obj2[key]);
+        } else {
+          if (!obj2.hasOwnProperty(key) || obj2[key] !== obj1[key]) {
+           haveEqualValues = false;
+          }
+        }
+      }
+    }
+    checkForEqualValues(apple, orange);
+    return haveEqualValues
 };
