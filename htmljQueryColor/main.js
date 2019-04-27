@@ -10,7 +10,6 @@ $(function() {
     var words = $(p).text().split(' ');
     var content = '';
     words.forEach(word => {
-      console.log(word);
       content+= `<span>${word}</span>  `;
     });
     $(p).html(content);
