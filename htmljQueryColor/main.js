@@ -6,10 +6,10 @@ $(function() {
   // HINT: the `split` array method is your friend
 
   // TODO: your code here!
-  $('p').each((i, p)=> {
+  $('p').each(function(i, p) {
     var words = $(p).text().split(' ');
     var content = '';
-    words.forEach(word => {
+    words.forEach(function(word) {
       content+= `<span>${word}</span>  `;
     });
     $(p).html(content);
@@ -19,8 +19,8 @@ $(function() {
 
   // TODO: your code here!
 
-  $('span').each((i, span)=> {
-    setInterval(()=> {
+  $('span').each(function(i, span) {
+    setInterval(function() {
       var r = Math.floor( Math.random() * 256 );
       var g = Math.floor( Math.random() * 256 );
       var b = Math.floor( Math.random() * 256 );
