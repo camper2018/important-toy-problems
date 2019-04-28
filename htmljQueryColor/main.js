@@ -4,7 +4,7 @@ $(function() {
   // for example: <p>Hey there</p>
   // becomes: <p><span>Hey</span><span>there</span></p>
   // HINT: the `split` array method is your friend
-
+  // testing
   // TODO: your code here!
   $('p').each((i, p)=> {
     var words = $(p).text().split(' ');
