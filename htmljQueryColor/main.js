@@ -27,5 +27,4 @@ $(function() {
       $(span).css({ backgroundColor: 'rgb(' + r + ', ' + g + ', ' + b + ')' });
     }, 1000);
   });
-// fixing errors
 });
