@@ -59,6 +59,7 @@ Tree.prototype.BFSelect = function(filter) {
         traverseTree(childNode);
       });
     }
+    depth--;
   }
   traverseTree(this);
   return result;
