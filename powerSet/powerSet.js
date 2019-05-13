@@ -23,7 +23,7 @@ var powerSet = function(str) {
   var possibleSubsets = 2 ** uniqueArr.length;
   for (var i = 0; i < possibleSubsets;  i++) {
     var subset = ''
-    for (j = 0; j < uniqueArr.length; j++) {
+    for (var j = 0; j < uniqueArr.length; j++) {
       if ((i & Math.pow(2, j))) {
         subset += uniqueArr[j];
       }
