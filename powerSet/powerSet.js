@@ -19,12 +19,13 @@
 
 var powerSet = function(str) {
   var  result = []
-  var possibleSubsets = 2 ** str.length;
+  var uniqueArr = [...new Set(str)];
+  var possibleSubsets = 2 ** uniqueArr.length;
   for (var i = 0; i < possibleSubsets;  i++) {
     var subset = ''
-    for (j = 0; j < str.length; j++) {
+    for (j = 0; j < uniqueArr.length; j++) {
       if ((i & Math.pow(2, j))) {
-        subset += str[j]
+        subset += uniqueArr[j];
       }
     }
     subset = subset.split("").sort().join("");
