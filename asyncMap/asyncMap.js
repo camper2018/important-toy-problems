@@ -39,4 +39,14 @@
 
 
 var asyncMap = function(tasks, callback) {
+  var Promises = tasks.map((task) => {
+    return new Promise(task);
+  });
+  return Promise.all(Promises)
+  .then((values) => {
+    callback(values);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
 };
