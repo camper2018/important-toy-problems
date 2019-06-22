@@ -32,16 +32,19 @@
  */
 
 var shuffleDeck = function(deck) {
+  var deckCopy = deck.slice();
   var result = [];
   var suits = [ '♥', '♣', '♠', '♦' ];
   var count = 0;
   while (count < 52) {
-      var randomIndex = Math.floor(Math.random() * Math.floor(deck.length));
+      var randomIndex = Math.floor(Math.random() * Math.floor(deckCopy.length));
       var randomSuit = Math.floor(Math.random() * Math.floor(suits.length));
-      var value = deck[randomIndex][0] + suits[randomSuit];
+      var value = deckCopy[randomIndex][0] + suits[randomSuit];
       if (!result.includes(value)) {
         result.push(value);
         count++;
+        deckCopy.splice(randomIndex, 1);
+
       }
   }
   return result;
