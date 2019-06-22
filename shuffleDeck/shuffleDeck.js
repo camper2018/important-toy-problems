@@ -32,7 +32,19 @@
  */
 
 var shuffleDeck = function(deck) {
-  // Your code here
+  var result = [];
+  var suits = [ '♥', '♣', '♠', '♦' ];
+  var count = 0;
+  while (count < 52) {
+      var randomIndex = Math.floor(Math.random() * Math.floor(deck.length));
+      var randomSuit = Math.floor(Math.random() * Math.floor(suits.length));
+      var value = deck[randomIndex][0] + suits[randomSuit];
+      if (!result.includes(value)) {
+        result.push(value);
+        count++;
+      }
+  }
+  return result;
 };
 
 // Ordered deck generator provided for your testing convenience
