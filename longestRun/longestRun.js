@@ -54,6 +54,26 @@ var longestRun = function (string) {
   return longestRunIndices;
 
 };
+// another solution
+
+function longestRun(input) {
+  if(string.length === 0) {
+    return null;
+  }
+  let longest = [0, 0];
+  let current = [0, 0];
+  for (var i = 1; i < input.length; i++) {
+    if(input[i] === input[i - 1]) {
+      current[1] = i;
+      if (current[1] - current[0] > longest[1] - longest[0]) {
+        longest = current;
+      }
+    } else {
+        current = [i, i];
+    }
+  }
+  return longest;
+}
 
 // If you need a random string generator, use this!
 // (you wont need this function for your solution but it may help with testing)
