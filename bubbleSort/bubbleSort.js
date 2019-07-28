@@ -52,3 +52,16 @@ var bubbleSort = function(array) {
   }
   return sortedArray;
 };
+// solution with time complexity of O(n^2)
+var bubbleSort = function(array) {
+  for (var i = 0; i < array.length - 1; i++) {
+    for(var j = 0; j < (array.length - 1) - i; j++) {
+      if  (array[j] > array[j + 1]) {
+        let temp = array[j];
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
+      }
+    }
+  }
+  return array;
+}
