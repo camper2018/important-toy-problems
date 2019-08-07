@@ -32,6 +32,7 @@
 
 // Feel free to add helper functions if needed.
 
+// solution with improved time complexity from O(n^2)
 var bubbleSort = function(array) {
   // Your code here.
   var sortedArray = array.slice();
@@ -52,7 +53,7 @@ var bubbleSort = function(array) {
   }
   return sortedArray;
 };
-// solution with time complexity of O(n^2)
+// solution with improved time complexity from O(n^2)
 var bubbleSort = function(array) {
   let isSorted = false;
   while(!isSorted) {
