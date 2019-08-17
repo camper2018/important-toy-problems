@@ -96,7 +96,32 @@
  */
 
 
+// helper
+var merge = function(left, right) {
+  var sorted = [];
+  var indexL = 0;
+  var indexR =  0;
+  while (indexL < left.length && indexR < right.length) {
+    if (left[indexL] <= right[indexR]) {
+      sorted.push(left[indexL]);
+      indexL++;
+    } else {
+      sorted.push(right[indexR]);
+      indexR++;
+    }
+  }
+  left[indexL]? sorted.push(left[indexL]):sorted.push(right[indexR]);
 
+  return sorted;
+}
 var mergeSort = function(array) {
-  // Your code here.
+  // good for sorting large data
+  // O(nlogn)
+  if (array.length <= 1) {
+    return array;
+  }
+  var middle = Math.floor(array.length / 2);
+  var leftArr = array.slice(0, middle);
+  var rightArr = array.slice(middle);
+  return merge(mergeSort(leftArr), mergeSort(rightArr));
 };
