@@ -37,33 +37,55 @@ var Tree = function(value) {
 
 
 
+// Tree.prototype.BFSelect = function(filter) {
+//   // return an array of values for which the function filter(value, depth) returns true
+//   var result = [];
+//   var depth = 0;
+//   if(filter(this.value, depth)) {
+//     result.push(this.value);
+//   }
+//   depth++;
+//   var traverseTree = function(node) {
+//     if (node.children && node.children.length > 0) {
+//       node.children.forEach(function(child) {
+//         if(filter(child.value, depth)) {
+//           result.push(child.value);
+//         }
+//       });
+//     }
+//     if (node.children && node.children.length > 0) {
+//       node.children.forEach(function(childNode) {
+//         depth++;
+//         traverseTree(childNode);
+//       });
+//     }
+//     depth--;
+//   }
+//   traverseTree(this);
+//   return result;
+// };
+
 Tree.prototype.BFSelect = function(filter) {
-  // return an array of values for which the function filter(value, depth) returns true
-  var result = [];
-  var depth = 0;
-  if(filter(this.value, depth)) {
-    result.push(this.value);
-  }
-  depth++;
-  var traverseTree = function(node) {
-    if (node.children && node.children.length > 0) {
-      node.children.forEach(function(child) {
-        if(filter(child.value, depth)) {
-          result.push(child.value);
-        }
+  let queue = [{
+    depth: 0,
+    node: this
+  }];
+  let result = [];
+  let nextNode;
+  while (queue.length > 0) {
+    nextNode = queue.shift();
+    if (nextNode.node.children.length > 0) {
+      nextNode.node.children.forEach(child =>{
+        queue.push({depth: nextNode.depth + 1,
+        node: child});
       });
     }
-    if (node.children && node.children.length > 0) {
-      node.children.forEach(function(childNode) {
-        depth++;
-        traverseTree(childNode);
-      });
+    if(filter(nextNode.node.value, nextNode.depth)) {
+      result.push(nextNode.node.value);
     }
-    depth--;
   }
-  traverseTree(this);
   return result;
-};
+}
 /**
  * You shouldn't need to change anything below here, but feel free to look.
   */
