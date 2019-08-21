@@ -34,26 +34,48 @@ var Tree = function(value) {
   this.value = value;
   this.children = [];
 };
+// recursive approach
 
+// Tree.prototype.DFSelect = function(filter) {
+//   var array = [];
+//   var depth = 0;
+//   var traverseTree = function(node) {
+//     if(filter(node.value, depth)) {
+//       array.push(node.value);
+//     }
+//     depth++;
+//     if (node.children && node.children.length > 0) {
+//       node.children.forEach(function(child) {
+//         traverseTree(child);
+//         depth--;
+//       });
+
+//     }
+//   }
+//   traverseTree((this));
+//   return array;
+// };
+
+// iterative approach
 Tree.prototype.DFSelect = function(filter) {
-  var array = [];
-  var depth = 0;
-  var traverseTree = function(node) {
-    if(filter(node.value, depth)) {
-      array.push(node.value);
+  let result = [];
+  let stack = [];
+  let nextNode;
+  stack.push({depth: 0, node: this});
+  while (stack.length > 0) {
+    nextNode = stack.pop();
+    if (nextNode.node.children.length > 0) {
+      for (var i = nextNode.node.children.length - 1; i >= 0; i--) {
+        stack.push({depth: nextNode.depth + 1,
+                   node: nextNode.node.children[i]});
+      }
     }
-    depth++;
-    if (node.children && node.children.length > 0) {
-      node.children.forEach(function(child) {
-        traverseTree(child);
-        depth--;
-      });
-
+    if (filter(nextNode.node.value, nextNode.depth)) {
+      result.push(nextNode.node.value);
     }
   }
-  traverseTree((this));
-  return array;
-};
+  return result;
+}
 
 // Tree.prototype.DFSelect = function(filter, depth=0, result=[]) {
 //   if (filter(this.value, depth)) {
