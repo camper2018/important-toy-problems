@@ -30,7 +30,7 @@ var LinkedList = function() {
 //write methods here!
 
 LinkedList.prototype.addToTail = function(value) {
-  let node = new this.makeNode(value);
+  let node = this.makeNode(value);
   if(this.head === null) {
     this.head = node;
     this.tail = node;
@@ -72,6 +72,9 @@ LinkedList.prototype.contains = function(value,node=this.head) {
 };
 
 LinkedList.prototype.makeNode = function(value) {
-  this.data = data;
-  this.next = null;
+  let node = {
+    data: data,
+    next: null
+  }
+  return node;
 };
