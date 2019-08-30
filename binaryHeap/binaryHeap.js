@@ -10,7 +10,7 @@
  * parent of the 3rd and 4th nodes, and the 2nd node will be the parent of the 5th and
  * 6th nodes. In a specific kind of binary heap, the binary min heap, every node is
  * less than its immediate children:
- * 
+ *
  *          0
  *     1         2
  *   3   4     5   6
@@ -77,11 +77,54 @@ function BinaryHeap () {
 BinaryHeap.prototype.getRoot = function () {
   return this._heap[0];
 }
-
+BinaryHeap.prototype.swap = function(i,j) {
+  let val1 = this._heap[i];
+  this._heap[i] = this._heap[j];
+  this._heap[j] = val1;
+}
 BinaryHeap.prototype.insert = function (value) {
   // TODO: Your code here
+  this._heap.push(value);
+  let currentIndx = this._heap.length - 1;
+  let parentIndx = Math.floor((currentIndx - 1)/2);
+    while (parentIndx && this._compare(this._heap[currentIndx],this._heap[parentIndx]) ) {
+      this.swap(parentIndx, currentIndx);
+      currentIndx = parentIndx;
+      parentIndx = Math.floor((currentIndx - 1)/2);
+    }
+  if (parentIndx === 0 && this._compare(this._heap[currentIndx],this._heap[parentIndx])) {
+    this.swap(parentIndx, currentIndx);
+  }
 }
 
 BinaryHeap.prototype.removeRoot = function () {
   // TODO: Your code here
+  let root = this.getRoot();
+  if (root === undefined) {
+    return null;
+  }
+  this._heap[0] = this._heap[this._heap.length - 1];
+  this._heap.pop();
+  if (this._heap.length > 1) {
+    let parentIndx = 0;
+    let leftChild = this._heap[2 * parentIndx + 1];
+    let rightChild = this._heap[2 * parentIndx + 2];
+    let  childIndx;
+    if (rightChild ) {
+      // childIndx = leftChild < rightChild ? 2 * parentIndx + 1 : 2 * parentIndx + 2;
+      childIndx = this._compare(leftChild,rightChild )? 2 * parentIndx + 1 : 2 * parentIndx + 2;
+    } else {
+      childIndx = 2 * parentIndx + 1 ;
+    }
+    // while (this._heap[childIndx] && this._heap[parentIndx] > this._heap[childIndx]) {
+    while (this._heap[childIndx] && this._compare( this._heap[childIndx], this._heap[parentIndx]) ) {
+      this.swap(parentIndx, childIndx);
+      parentIndx = childIndx;
+      leftChild = this._heap[2 * parentIndx + 1];
+      rightChild = this._heap[2 * parentIndx + 2];
+      childIndx = this._compare(leftChild,rightChild )? 2 * parentIndx + 1 : 2 * parentIndx + 2;
+    }
+  }
+  return root;
 }
+
