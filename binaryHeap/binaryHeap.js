@@ -77,53 +77,73 @@ function BinaryHeap () {
 BinaryHeap.prototype.getRoot = function () {
   return this._heap[0];
 }
+BinaryHeap.prototype.getLeftChild = function (parentIndex) {
+  return parentIndex * 2 + 1;
+};
+
+BinaryHeap.prototype.getRightChild = function (parentIndex){
+  return parentIndex * 2 + 2;
+};
+BinaryHeap.prototype.getParentIndex = function (childIndex) {
+  return Math.floor((childIndex - 1) / 2);
+};
 BinaryHeap.prototype.swap = function(i,j) {
   let val1 = this._heap[i];
   this._heap[i] = this._heap[j];
   this._heap[j] = val1;
-}
+};
+// fixes heap after insertion of new value such that the parent's value is always less than children's values.
+BinaryHeap.prototype.bubbleUp = function(childIndex) {
+  while (childIndex) {
+    let parentIndx = this.getParentIndex(childIndex);
+    if(this._compare(this._heap[childIndex],this._heap[parentIndx])) {
+      this.swap(parentIndx, childIndex);
+    }
+  childIndex = parentIndx;
+  }
+};
+//// fixes heap after removal
+BinaryHeap.prototype.bubbleDown = function(parentIndex) {
+  let rightChildIndx = this.getRightChild(parentIndex);
+  let leftChildIndx = this.getLeftChild
+  (parentIndex);
+  while(this._heap[rightChildIndx]) {
+    let  currentChildIndx= this._compare(this._heap[leftChildIndx],this._heap[rightChildIndx]) ? leftChildIndx: rightChildIndx;
+    if (this._compare(this._heap[currentChildIndx], this._heap[parentIndex])) {
+      this.swap(parentIndex, currentChildIndx);
+    }
+    parentIndex = currentChildIndx;
+    rightChildIndx = this.getRightChild(parentIndex);
+    leftChildIndx = this.getLeftChild(parentIndex);
+  }
+};
 BinaryHeap.prototype.insert = function (value) {
   // TODO: Your code here
   this._heap.push(value);
   let currentIndx = this._heap.length - 1;
-  let parentIndx = Math.floor((currentIndx - 1)/2);
-    while (parentIndx && this._compare(this._heap[currentIndx],this._heap[parentIndx]) ) {
-      this.swap(parentIndx, currentIndx);
-      currentIndx = parentIndx;
-      parentIndx = Math.floor((currentIndx - 1)/2);
-    }
-  if (parentIndx === 0 && this._compare(this._heap[currentIndx],this._heap[parentIndx])) {
-    this.swap(parentIndx, currentIndx);
-  }
+  this.bubbleUp(currentIndx);
 }
 
 BinaryHeap.prototype.removeRoot = function () {
-  // TODO: Your code here
+  // store root node value to be returned.
   let root = this.getRoot();
+  // if heap is empty return null
   if (root === undefined) {
     return null;
   }
+  // replace root node with last node and remove root node.
   this._heap[0] = this._heap[this._heap.length - 1];
   this._heap.pop();
-  if (this._heap.length > 1) {
+  // if only 2 nodes left
+  if (this._heap[this.getRightChild(0)] === undefined) {
+    if (this._compare(this._heap[this.getLeftChild(0)],this._heap[0])) {
+      this.swap(0, this.getLeftChild(0));
+    }
+  }
+  // if more than 2 nodes
+  if (this._heap.length > 2) {
     let parentIndx = 0;
-    let leftChild = this._heap[2 * parentIndx + 1];
-    let rightChild = this._heap[2 * parentIndx + 2];
-    let  childIndx;
-    if (rightChild ) {
-      // childIndx = leftChild < rightChild ? 2 * parentIndx + 1 : 2 * parentIndx + 2;
-      childIndx = this._compare(leftChild,rightChild )? 2 * parentIndx + 1 : 2 * parentIndx + 2;
-    } else {
-      childIndx = 2 * parentIndx + 1 ;
-    }
-    // while (this._heap[childIndx] && this._heap[parentIndx] > this._heap[childIndx]) {
-    while (this._heap[childIndx] && this._compare( this._heap[childIndx], this._heap[parentIndx]) ) {
-      this.swap(parentIndx, childIndx);
-      parentIndx = childIndx;
-      leftChild = this._heap[2 * parentIndx + 1];
-      rightChild = this._heap[2 * parentIndx + 2];
-      childIndx = this._compare(leftChild,rightChild )? 2 * parentIndx + 1 : 2 * parentIndx + 2;
-    }
+    this.bubbleDown(parentIndx);
   }
   return root;
 }
