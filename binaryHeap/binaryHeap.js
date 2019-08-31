@@ -67,10 +67,14 @@
 // and then iteratively returns the root of the `BinaryHeap` until its empty, thus returning a sorted array.
 
 
-function BinaryHeap () {
+function BinaryHeap (str) {
   this._heap = [];
   // this compare function will result in a minHeap, use it to make comparisons between nodes in your solution
-  this._compare = function (i, j) { return i < j };
+  //this._compare = function (i, j) { return i < j };
+  this.compareOperator = str;
+  this._compare = function (i, j ) {
+    return this.compareOperator === 'max'? i > j: i < j;
+  }
 }
 
 // This function works just fine and shouldn't be modified
