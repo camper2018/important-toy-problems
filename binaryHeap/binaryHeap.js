@@ -150,5 +150,41 @@ BinaryHeap.prototype.removeRoot = function () {
     this.bubbleDown(parentIndx);
   }
   return root;
-}
+};
+BinaryHeap.prototype.buildHeap = function(array) {
+  // builds binary heap from array
+  array.forEach((item)=> {
+    this.insert(item);
+  });
+};
+
+BinaryHeap.prototype.heapSort = function(array) {
+  //Heapsort is an in-place sorting algorithm with worst case and average complexity of O(n logn)
+
+  // build heap from array
+  this.buildHeap(array);
+  let startIndx = 0;
+  let endIndx = this._heap.length - 1;
+  let heapFix = (startIndx, endIndx)=> {
+    let start = this._heap[startIndx];
+    let end = this._heap[endIndx];
+    array[endIndx] = start;
+    this._heap[startIndx] = end;
+    this._heap.pop();
+    this.bubbleDown(startIndx);
+  }
+  //while(this._heap.length > 1) {
+  while(endIndx > 0) {
+    heapFix(startIndx, endIndx);
+    endIndx--;
+  }
+  // now for correctly placing the first element in array, check the last node value in heap, if < array's secondlast element (beginning of sorted array) simply replace the first element of array with the last node , otherwise swap first element of array with second element and then replace second element with the last node value.
+  if (array[1] > this._heap[0]) {
+    array[0] = this._heap.pop();
+  } else {
+    array[0] = array[1];
+    array[1] = this._heap.pop();
+  }
+  return array;
+};
 
