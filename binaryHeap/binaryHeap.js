@@ -161,7 +161,7 @@ BinaryHeap.prototype.buildHeap = function(array) {
 BinaryHeap.prototype.heapSort = function(array) {
   //Heapsort is an in-place sorting algorithm with worst case and average complexity of O(n logn)
 
-  // build heap from array
+  // build max heap from array
   this.buildHeap(array);
   let startIndx = 0;
   let endIndx = this._heap.length - 1;
