@@ -15,7 +15,7 @@
 var toFraction = function(number) {
   // Your code here
   // if number is a whole number
-	if ( parseFloat(number) === parseInt( number) ) {
+	if (parseFloat(number) === parseInt( number) ) {
 		return `${number}/1`;
   }
   // helper function that calculates greatest common divisor
